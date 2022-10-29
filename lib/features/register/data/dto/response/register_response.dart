@@ -56,8 +56,8 @@ class RegisterResponse {
       'id': id,
       'name': name,
       'email': email,
-      'updated_at': updatedAt.millisecondsSinceEpoch,
-      'created_at': createdAt.millisecondsSinceEpoch,
+      'updated_at': updatedAt.toIso8601String(),
+      'created_at': createdAt.toIso8601String(),
     };
   }
 
@@ -66,8 +66,8 @@ class RegisterResponse {
       map['id']?.toInt() ?? 0,
       map['name'] ?? '',
       map['email'] ?? '',
-      DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
-      DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      DateTime.parse(map['updated_at']),
+      DateTime.parse(map['created_at']),
     );
   }
 
