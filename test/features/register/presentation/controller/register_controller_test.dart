@@ -36,7 +36,7 @@ void main() {
       .thenAnswer((_) async => const Success(true));
 
       final controller = RegisterController(
-        mockRegisterService, RegisterState(const AsyncValue.data(false), false),
+        mockRegisterService, RegisterState(const AsyncValue.data(false), false,false),
       );
 
       expect(controller.debugState.isRegistered, const AsyncValue.data(false));
@@ -71,7 +71,7 @@ void main() {
       );
 
       final controller = RegisterController(
-        mockRegisterService, RegisterState(const AsyncValue.data(false), false),
+        mockRegisterService, RegisterState(const AsyncValue.data(false), false,false),
       );
 
       expect(controller.debugState.isRegistered, const AsyncValue.data(false));

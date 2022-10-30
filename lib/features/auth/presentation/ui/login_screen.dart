@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:youtube_sample_app/common/mixin/input_validation_mixin.dart';
 import 'package:youtube_sample_app/common/widget/app_scaffold.dart';
+import 'package:youtube_sample_app/common/widget/form/custom_text_form_field.dart';
 import 'package:youtube_sample_app/common/widget/widget_key.dart';
 import 'package:youtube_sample_app/features/auth/data/dto/request/login/login_request.dart';
 import 'package:youtube_sample_app/features/auth/presentation/ui/controller/auth_controller.dart';
@@ -51,63 +52,46 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with InputValidationM
                 children: [
                   const Text('Login'),
             
-                  const SizedBox(height: 16,),
-            
-                  TextFormField(
-                    key: emailTextKey, 
-                    controller: _emailController,  
+                  CustomTextFormField(
+                    textFieldKey: emailTextKey,
+                    labelText: 'Email',
+                    hintText: 'Enter your email',
+                    prefixIcon: const Icon(Icons.email),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _emailController.clear();
+                      }, 
+                      icon: const Icon(Icons.clear),
+                    ), 
+                    passwordConfirmController: _emailController,
                     validator: combine([
                       withMessage('email is empty', isTextEmpty),
                       withMessage('email is invalid', isInvalidEmail)
-                    ]),                                
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'your email',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      prefixIcon: const Icon(Icons.email),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _emailController.clear();
-                        }, 
-                        icon: const Icon(Icons.clear),
-                      ),                   
-                    ),
-                  ),
-            
+                    ]),
+                  ),            
+                  
                   const SizedBox(height: 16,),
-            
-                  TextFormField(
-                    key: passwordTextKey,   
-                    controller: _passwordController,  
-                    obscureText: true, 
+                  CustomTextFormField(
+                    textFieldKey: passwordTextKey,
+                    labelText: 'Password',
+                    hintText: 'Enter your password',
+                    isObscureText: true,
+                    prefixIcon: const Icon(Icons.security),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _passwordController.clear();
+                      }, 
+                      icon: const Icon(Icons.clear),
+                    ), 
+                    passwordConfirmController: _passwordController,
                     validator: combine([
                       withMessage('password is empty', isTextEmpty),
                       withMessage('password is invalid', isPasswordInvalid)
-                    ]),        
-                    decoration: InputDecoration(
-                      helperText: 'Password length must 7 char and contain number and char',
-                      labelText: 'Password',
-                      hintText: 'your password',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      prefixIcon: const Icon(Icons.security),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _passwordController.clear();
-                        }, 
-                        icon: const Icon(Icons.clear),
-                      ),
-            
-                    ),
-                  ),
-            
-                  const SizedBox(height: 16,),
-            
+                    ]),
+                  ),            
+                              
+                  const SizedBox(height: 16,),            
+                              
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center, 
                     children: [

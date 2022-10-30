@@ -13,7 +13,7 @@ import 'package:youtube_sample_app/features/home/presentation/ui/home_screen.dar
 import 'package:youtube_sample_app/features/product/presentation/ui/product_detail_screen.dart';
 import 'package:youtube_sample_app/features/setting/presentation/ui/setting_screen.dart';
 import 'package:youtube_sample_app/core/route/named_route.dart';
-import 'package:youtube_sample_app/screen/error/route_error_screen.dart';
+import 'package:youtube_sample_app/common/error/route_error_screen.dart';
 
 
 

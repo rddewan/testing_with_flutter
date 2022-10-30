@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:youtube_sample_app/common/mixin/input_validation_mixin.dart';
 import 'package:youtube_sample_app/common/widget/app_scaffold.dart';
+import 'package:youtube_sample_app/common/widget/dialog/confirm_dialog.dart';
+import 'package:youtube_sample_app/common/widget/form/custom_text_form_field.dart';
 import 'package:youtube_sample_app/common/widget/primary_button.dart';
 import 'package:youtube_sample_app/common/widget/widget_key.dart';
 import 'package:youtube_sample_app/core/error/failure.dart';
+import 'package:youtube_sample_app/core/route/go_router_provider.dart';
 import 'package:youtube_sample_app/features/register/data/dto/request/register_request.dart';
 import 'package:youtube_sample_app/features/register/presentation/controller/register_controller.dart';
+import 'package:youtube_sample_app/features/register/presentation/ui/widget/check_box_widget.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -16,7 +20,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
   ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends ConsumerState<RegisterScreen> with InputValidationMixin {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> with InputValidationMixin, ConfirmDialog {
 
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _emailController = TextEditingController();
@@ -35,8 +39,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> with InputValid
 
   @override
   Widget build(BuildContext context) {
+    listenStateChange();
     final registerState = ref.watch(registerControllerProvider).isRegistered;
-    
+        
     return AppScaffold(
       title: const Text('Register'), 
       slivers: [
@@ -51,7 +56,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> with InputValid
                   registerState.when(
                     data: (data)  {
                       return data ? const Text('Register successful') : const SizedBox.shrink();
-                    },
+                                          },
                     error: (error, stackTrace) {
                       final e  = error as Failure;
                       return Text(e.message);
@@ -61,114 +66,121 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> with InputValid
                   ),
             
                   const SizedBox(height: 16,),
-            
-                  TextFormField(
-                    key: nameTextKey,
-                    controller: _nameController, 
+                  CustomTextFormField(
+                    textFieldKey: nameTextKey,
+                    labelText: 'Name',
+                    hintText: 'Enter your name',
+                    prefixIcon: const Icon(Icons.person),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _nameController.clear();
+                      }, 
+                      icon: const Icon(Icons.clear),
+                    ), 
+                    passwordConfirmController: _nameController,
                     validator: combine(
                       [
                         withMessage('name is empty', isTextEmpty),                       
                       ]
-                    ),               
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      hintText: 'your name',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      prefixIcon: const Icon(Icons.person),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _nameController.clear();
-                        }, 
-                        icon: const Icon(Icons.clear),
-                      ),
-            
                     ),
+                  ),            
+                              
+                  const SizedBox(height: 16,),
+                  CustomTextFormField(
+                    textFieldKey: emailTextKey,
+                    labelText: 'Email',
+                    hintText: 'Enter your email',
+                    prefixIcon: const Icon(Icons.email),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _emailController.clear();
+                      }, 
+                      icon: const Icon(Icons.clear),
+                    ), 
+                    passwordConfirmController: _emailController,
+                    validator: combine([
+                      withMessage('email is empty', isTextEmpty),
+                      withMessage('email is invalid', isInvalidEmail)
+                    ]),
+                  ),            
+                  
+                  const SizedBox(height: 16,),
+                  CustomTextFormField(
+                    textFieldKey: passwordTextKey,
+                    labelText: 'Password',
+                    hintText: 'Enter your password',
+                    isObscureText: true,
+                    prefixIcon: const Icon(Icons.security),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _passwordController.clear();
+                      }, 
+                      icon: const Icon(Icons.clear),
+                    ), 
+                    passwordConfirmController: _passwordController,
+                    validator: combine([
+                      withMessage('password is empty', isTextEmpty),
+                      withMessage('password is invalid', isPasswordInvalid)
+                    ]),
+                  ),            
+                              
+                  const SizedBox(height: 16,),
+            
+                  CustomTextFormField(
+                    textFieldKey: confirmPasswordTextKey,
+                    labelText: 'Confirm Password',
+                    hintText: 'Enter your confirm password',
+                    prefixIcon: const Icon(Icons.security),
+                    isObscureText: true,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _passwordConfirmController.clear();
+                      }, 
+                      icon: const Icon(Icons.clear),
+                    ), 
+                    passwordConfirmController: _passwordConfirmController,
+                    validator: combine([                      
+                      withMessage('password is empty', isTextEmpty),
+                      withMessage('password is invalid', isPasswordInvalid),
+                      withMessage(
+                        'Password did not match', 
+                        (confirmPassword) {
+                          final password = _passwordController.text;
+                          if (confirmPassword != password) {
+                            return ValidateFailResult.passwordNotMatch;
+                          }
+                          return null;
+                        })
+                    ]),
                   ),
             
                   const SizedBox(height: 16,),
-            
-                  TextFormField(
-                    key: emailTextKey,  
-                    controller: _emailController,              
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'your email',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      prefixIcon: const Icon(Icons.email),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _emailController.clear();
-                        }, 
-                        icon: const Icon(Icons.clear),
-                      ), 
-            
-                    ),
-                  ),
-            
-                  const SizedBox(height: 16,),
-            
-                  TextFormField(
-                    key: passwordTextKey,  
-                    controller: _passwordController, 
-                    obscureText: true,             
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      hintText: 'your password',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      prefixIcon: const Icon(Icons.security),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _passwordController.clear();
-                        }, 
-                        icon: const Icon(Icons.clear),
-                      ), 
-            
-                    ),
-                  ),
-            
-                  const SizedBox(height: 16,),
-            
-                  TextFormField(
-                    key: confirmPasswordTextKey,   
-                    controller: _passwordConfirmController,
-                    obscureText: true,             
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      hintText: 'confirm your password',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      prefixIcon: const Icon(Icons.security),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _passwordConfirmController.clear();
-                        }, 
-                        icon: const Icon(Icons.clear),
-                      ), 
-            
-                    ),
-                  ),
-            
-                  const SizedBox(height: 16,),
-            
-                  CheckboxListTile(
-                    title: const Text("Terms and condition"),
-                    subtitle: const Text('Please accept terms and condition'),
-                    value: false,
-                      onChanged: (value) {
-            
+
+                  Consumer(builder: ((context, ref, child) {
+                    final isChecked = ref.watch(registerControllerProvider.select(
+                        (value) => value.isTermsAndCondition,),
+                      );
+                    
+                    return CheckboxWidget(
+                      title: 'Terms and condition', 
+                      subtitle: 'Please accept terms and condition',
+                      value: isChecked,
+                      validator: (value) {
+                        return isValidTermsAndConditions(
+                          value,
+                          'Please accept terms and conditions',
+                        );
                       },
-                  ),
+                      onChanged: (value) {
+                        ref.read(registerControllerProvider.notifier)                        
+                          .setTermsAndCondition(value ?? false);
+                      },
+                    );
+
+                  }),),           
+                  
+
+                  const SizedBox(height: 16,),
 
                   PrimaryButton(
                     key: btnRegisterKey,
@@ -206,5 +218,35 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> with InputValid
     }
 
   }
+
+  void listenStateChange() {
+    ref.listen<bool?>(registerControllerProvider.select((value) => value.isRegistered.value), (p, next) { 
+      if(next != null && next) {
+        showConfirmDialog(
+          context: context,
+          title: 'Do you want to login?',
+          msg: 'You will be redirected to login screen',
+          btnNoText: 'No',
+          btnYesText: 'Yes',
+          onYesTap: () {
+            final navigator = Navigator.of(context,rootNavigator: true);
+            if (navigator.canPop()) {
+              navigator.pop();
+              ref.read(goRouterProvider).go('login');
+            }
+            
+          },
+          onNoTap: () {
+            final navigator = Navigator.of(context,rootNavigator: true);
+            if (navigator.canPop()) {
+              navigator.pop();
+            }
+          },
+        );     
+
+      }
+    });
+  }
   
 }
+

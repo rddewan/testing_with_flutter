@@ -33,29 +33,4 @@ void main() {
        
   });
 
-  testWidgets('login screen ...', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(
-          body: LoginScreen(),
-        ),
-      ),
-      
-   );
-    await tester.pumpAndSettle();
-    expect(find.text('Login'), findsNWidgets(3));
-
-    final emailField = find.byKey(emailTextKey);
-    expect(emailField, findsOneWidget);
-    
-    final passwordField = find.byKey(passwordTextKey);
-    expect(passwordField, findsOneWidget);   
-
-    
-    await tester.tap(find.byKey(btnLoginKey));
-    await tester.pumpAndSettle();
-    expect(find.text('email is empty'), findsOneWidget);
-    expect(find.text('password is empty'), findsOneWidget);
-       
-  });
-}
+  }

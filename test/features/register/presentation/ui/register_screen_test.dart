@@ -36,7 +36,7 @@ void main() {
       
       final controller = RegisterController(
         mockRegisterService, 
-        RegisterState(const AsyncValue.data(false), false),
+        RegisterState(const AsyncValue.data(false), false,false),
       );
 
       return controller;
@@ -76,7 +76,7 @@ void main() {
 
     await tester.tap(find.byKey(btnRegisterKey));
     await tester.pumpAndSettle();
-    expect( find.text('Register successful'), findsOneWidget);
+    expect( find.text('Please accept terms and conditions'), findsOneWidget);
 
 
 

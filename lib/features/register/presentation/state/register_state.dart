@@ -5,18 +5,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class RegisterState {
   final AsyncValue<bool> isRegistered;
   final bool isFormValid;
+  final bool isTermsAndCondition;
 
-  RegisterState(this.isRegistered, this.isFormValid);
+  RegisterState(this.isRegistered, this.isFormValid, this.isTermsAndCondition);
 
-  
+ 
 
   RegisterState copyWith({
     AsyncValue<bool>? isRegistered,
     bool? isFormValid,
+    bool? isTermsAndCondition,
   }) {
     return RegisterState(
       isRegistered ?? this.isRegistered,
       isFormValid ?? this.isFormValid,
+      isTermsAndCondition ?? this.isTermsAndCondition,
     );
   }
 
@@ -26,12 +29,10 @@ class RegisterState {
   
     return other is RegisterState &&
       other.isRegistered == isRegistered &&
-      other.isFormValid == isFormValid;
+      other.isFormValid == isFormValid &&
+      other.isTermsAndCondition == isTermsAndCondition;
   }
 
   @override
-  int get hashCode => isRegistered.hashCode ^ isFormValid.hashCode;
-
-  @override
-  String toString() => 'RegisterState(isRegistered: $isRegistered, isFormValid: $isFormValid)';
+  int get hashCode => isRegistered.hashCode ^ isFormValid.hashCode ^ isTermsAndCondition.hashCode;
 }

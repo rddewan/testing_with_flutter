@@ -14,7 +14,7 @@ final registerControllerProvider = StateNotifierProvider.autoDispose<RegisterCon
   
   return RegisterController(
     registerService, 
-    RegisterState(const AsyncValue.data(false), false),
+    RegisterState(const AsyncValue.data(false), false, false),
   );
 });
 
@@ -34,6 +34,11 @@ class RegisterController extends StateNotifier<RegisterState> with InputValidati
       (success) => state = state.copyWith(
         isRegistered: AsyncValue.data(success),),
       );
+  }
+
+
+  void setTermsAndCondition(bool value) {
+    state = state.copyWith(isTermsAndCondition: value);
   }
 
   

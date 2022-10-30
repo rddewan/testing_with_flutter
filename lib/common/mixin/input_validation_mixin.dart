@@ -2,7 +2,7 @@ enum ValidateFailResult {
   empty,
   invalidEmail,
   invalidPassword,
-  invalidPasswordNotMatch,
+  passwordNotMatch,
   invalidAtLeastEightCharacter,
   invalidPhoneNumber,
   invalidLength,
@@ -100,5 +100,13 @@ mixin InputValidationMixin {
       }
       return null;
     };
+  }
+
+  
+  String? isValidTermsAndConditions(bool? value, String message) {
+    if (value == false || value == null) {
+      return message;
+    }
+    return null;
   }
 }
