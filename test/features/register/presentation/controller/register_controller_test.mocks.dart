@@ -3,13 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:multiple_result/multiple_result.dart' as _i2;
 import 'package:youtube_sample_app/core/error/failure.dart' as _i5;
+import 'package:youtube_sample_app/core/provider/is_internet_connected_provider.dart'
+    as _i7;
 import 'package:youtube_sample_app/features/register/application/register_service.dart'
-    as _i3;
+    as _i4;
 import 'package:youtube_sample_app/features/register/data/dto/request/register_request.dart'
     as _i6;
 
@@ -34,19 +36,30 @@ class _FakeResult_0<E, S> extends _i1.SmartFake implements _i2.Result<E, S> {
         );
 }
 
+class _FakeStreamController_1<T> extends _i1.SmartFake
+    implements _i3.StreamController<T> {
+  _FakeStreamController_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [RegisterService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRegisterService extends _i1.Mock implements _i3.RegisterService {
+class MockRegisterService extends _i1.Mock implements _i4.RegisterService {
   @override
-  _i4.Future<_i2.Result<_i5.Failure, bool>> register(
+  _i3.Future<_i2.Result<_i5.Failure, bool>> register(
           _i6.RegisterRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #register,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Result<_i5.Failure, bool>>.value(
+        returnValue: _i3.Future<_i2.Result<_i5.Failure, bool>>.value(
             _FakeResult_0<_i5.Failure, bool>(
           this,
           Invocation.method(
@@ -55,7 +68,7 @@ class MockRegisterService extends _i1.Mock implements _i3.RegisterService {
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Result<_i5.Failure, bool>>.value(
+            _i3.Future<_i2.Result<_i5.Failure, bool>>.value(
                 _FakeResult_0<_i5.Failure, bool>(
           this,
           Invocation.method(
@@ -63,9 +76,9 @@ class MockRegisterService extends _i1.Mock implements _i3.RegisterService {
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Result<_i5.Failure, bool>>);
+      ) as _i3.Future<_i2.Result<_i5.Failure, bool>>);
   @override
-  _i4.Future<bool> addToBox<T>(
+  _i3.Future<bool> addToBox<T>(
     String? key,
     T? value,
   ) =>
@@ -77,7 +90,44 @@ class MockRegisterService extends _i1.Mock implements _i3.RegisterService {
             value,
           ],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
+}
+
+/// A class which mocks [InternetConnectionObserver].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockInternetConnectionObserver extends _i1.Mock
+    implements _i7.InternetConnectionObserver {
+  @override
+  _i3.StreamController<bool> get hasConnection => (super.noSuchMethod(
+        Invocation.getter(#hasConnection),
+        returnValue: _FakeStreamController_1<bool>(
+          this,
+          Invocation.getter(#hasConnection),
+        ),
+        returnValueForMissingStub: _FakeStreamController_1<bool>(
+          this,
+          Invocation.getter(#hasConnection),
+        ),
+      ) as _i3.StreamController<bool>);
+  @override
+  set hasConnection(_i3.StreamController<bool>? _hasConnection) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #hasConnection,
+          _hasConnection,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i3.Future<bool> isNetConnected() => (super.noSuchMethod(
+        Invocation.method(
+          #isNetConnected,
+          [],
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }

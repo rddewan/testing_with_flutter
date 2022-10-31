@@ -12,8 +12,6 @@ import 'package:youtube_sample_app/features/auth/application/iauth_service.dart'
     as _i3;
 import 'package:youtube_sample_app/features/auth/data/dto/request/login/login_request.dart'
     as _i6;
-import 'package:youtube_sample_app/features/setting/data/repository/setting_repository.dart'
-    as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -89,38 +87,6 @@ class MockIAuthService extends _i1.Mock implements _i3.IAuthService {
           ),
         )),
       ) as _i4.Future<_i2.Result<_i5.Failure, bool>>);
-  @override
-  _i4.Future<bool> addToBox<T>(
-    String? key,
-    T? value,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #addToBox,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
-  @override
-  _i4.Future<T?> getFromBox<T>(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #getFromBox,
-          [key],
-        ),
-        returnValue: _i4.Future<T?>.value(),
-        returnValueForMissingStub: _i4.Future<T?>.value(),
-      ) as _i4.Future<T?>);
-}
-
-/// A class which mocks [ISettingRepository].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockISettingRepository extends _i1.Mock
-    implements _i7.ISettingRepository {
   @override
   _i4.Future<bool> addToBox<T>(
     String? key,
