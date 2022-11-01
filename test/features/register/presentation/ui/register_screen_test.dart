@@ -83,7 +83,9 @@ void main() {
 
     await tester.tap(find.byKey(btnRegisterKey));
     await tester.pumpAndSettle();
-    expect( find.text('Please accept terms and conditions'), findsOneWidget);
+    final widget = tester.widget<Text>(find.text('Please accept terms and conditions'));
+    expect(find.byWidget(widget), findsOneWidget);
+    expect(widget.style?.color, Colors.red);
 
 
   });
@@ -144,9 +146,13 @@ void main() {
 
       await tester.tap(find.byKey(btnRegisterKey));
       await tester.pumpAndSettle();
-      expect( find.text('Please accept terms and conditions'), findsNothing);
-      expect( find.text('Register successful'), findsOneWidget);
+      expect(find.text('Please accept terms and conditions'), findsNothing);
+      expect(find.text('Register successful'), findsOneWidget);
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(find.text('Do you want to login?'), findsOneWidget);
 
-
+      await tester.tap(find.text('No'));
+      await tester.pumpAndSettle();
+     
   });
 }
