@@ -412,9 +412,9 @@ Data _$DataFromJson(Map<String, dynamic> json) {
 mixin _$Data {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'category_id')
-  int get categoryId => throw _privateConstructorUsedError;
+  String get categoryId => throw _privateConstructorUsedError;
   @JsonKey(name: 'brand_id')
-  int get brandId => throw _privateConstructorUsedError;
+  String get brandId => throw _privateConstructorUsedError;
   String get sku => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'short_description')
@@ -424,7 +424,7 @@ mixin _$Data {
   String get thumbnail => throw _privateConstructorUsedError;
   String get images => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
-  int get isActive => throw _privateConstructorUsedError;
+  String get isActive => throw _privateConstructorUsedError;
   @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -444,15 +444,15 @@ abstract class $DataCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'category_id') int categoryId,
-      @JsonKey(name: 'brand_id') int brandId,
+      @JsonKey(name: 'category_id') String categoryId,
+      @JsonKey(name: 'brand_id') String brandId,
       String sku,
       String name,
       @JsonKey(name: 'short_description') String shortDescription,
       @JsonKey(name: 'long_description') String longDescription,
       String thumbnail,
       String images,
-      @JsonKey(name: 'is_active') int isActive,
+      @JsonKey(name: 'is_active') String isActive,
       @JsonKey(name: 'deleted_at') DateTime? deletedAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
@@ -493,11 +493,11 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
       categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       brandId: null == brandId
           ? _value.brandId
           : brandId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       sku: null == sku
           ? _value.sku
           : sku // ignore: cast_nullable_to_non_nullable
@@ -525,7 +525,7 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
       isActive: null == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -550,15 +550,15 @@ abstract class _$$_DataCopyWith<$Res> implements $DataCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'category_id') int categoryId,
-      @JsonKey(name: 'brand_id') int brandId,
+      @JsonKey(name: 'category_id') String categoryId,
+      @JsonKey(name: 'brand_id') String brandId,
       String sku,
       String name,
       @JsonKey(name: 'short_description') String shortDescription,
       @JsonKey(name: 'long_description') String longDescription,
       String thumbnail,
       String images,
-      @JsonKey(name: 'is_active') int isActive,
+      @JsonKey(name: 'is_active') String isActive,
       @JsonKey(name: 'deleted_at') DateTime? deletedAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
@@ -595,11 +595,11 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
       categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       brandId: null == brandId
           ? _value.brandId
           : brandId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       sku: null == sku
           ? _value.sku
           : sku // ignore: cast_nullable_to_non_nullable
@@ -627,7 +627,7 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
       isActive: null == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -669,10 +669,10 @@ class _$_Data implements _Data {
   final int id;
   @override
   @JsonKey(name: 'category_id')
-  final int categoryId;
+  final String categoryId;
   @override
   @JsonKey(name: 'brand_id')
-  final int brandId;
+  final String brandId;
   @override
   final String sku;
   @override
@@ -689,7 +689,7 @@ class _$_Data implements _Data {
   final String images;
   @override
   @JsonKey(name: 'is_active')
-  final int isActive;
+  final String isActive;
   @override
   @JsonKey(name: 'deleted_at')
   final DateTime? deletedAt;
@@ -769,9 +769,9 @@ abstract class _Data implements Data {
   const factory _Data(
       {required final int id,
       @JsonKey(name: 'category_id')
-          required final int categoryId,
+          required final String categoryId,
       @JsonKey(name: 'brand_id')
-          required final int brandId,
+          required final String brandId,
       required final String sku,
       required final String name,
       @JsonKey(name: 'short_description')
@@ -781,7 +781,7 @@ abstract class _Data implements Data {
       required final String thumbnail,
       required final String images,
       @JsonKey(name: 'is_active')
-          required final int isActive,
+          required final String isActive,
       @JsonKey(name: 'deleted_at')
           final DateTime? deletedAt,
       @JsonKey(name: 'created_at')
@@ -795,10 +795,10 @@ abstract class _Data implements Data {
   int get id;
   @override
   @JsonKey(name: 'category_id')
-  int get categoryId;
+  String get categoryId;
   @override
   @JsonKey(name: 'brand_id')
-  int get brandId;
+  String get brandId;
   @override
   String get sku;
   @override
@@ -815,7 +815,7 @@ abstract class _Data implements Data {
   String get images;
   @override
   @JsonKey(name: 'is_active')
-  int get isActive;
+  String get isActive;
   @override
   @JsonKey(name: 'deleted_at')
   DateTime? get deletedAt;

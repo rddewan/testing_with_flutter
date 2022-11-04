@@ -54,15 +54,15 @@ class ProductService with BaseService implements IProductService, ProductModelMa
         response.data.map((e) => 
           Product(
             id: e.id, 
-            categoryId: e.categoryId, 
-            brandId: e.brandId, 
+            categoryId: int.parse(e.categoryId), 
+            brandId: int.parse(e.brandId), 
             sku: e.sku,
             name: e.name, 
             shortDescription: e.shortDescription, 
             longDescription: e.longDescription, 
             thumbnail: '$_baseUrl${e.thumbnail}', 
             images: '$_baseUrl${e.images}', 
-            isActive: e.isActive,          
+            isActive: int.parse(e.isActive),          
           ),  
         ).toList(),
       );

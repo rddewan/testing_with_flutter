@@ -50,9 +50,9 @@ class Data with _$Data {
   const factory Data({
     required  int id,
     @JsonKey(name: 'category_id')
-    required  int categoryId,
+    required  String categoryId,
     @JsonKey(name: 'brand_id')
-    required  int brandId,
+    required  String brandId,
     required  String sku,
     required  String name,
     @JsonKey(name: 'short_description')
@@ -62,7 +62,7 @@ class Data with _$Data {
     required  String thumbnail,
     required  String images,
     @JsonKey(name: 'is_active')
-    required  int isActive,
+    required  String isActive,
     @JsonKey(name: 'deleted_at')
     DateTime? deletedAt,
     @JsonKey(name: 'created_at')

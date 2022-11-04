@@ -41,15 +41,15 @@ Map<String, dynamic> _$$_ProductResponseToJson(_$_ProductResponse instance) =>
 
 _$_Data _$$_DataFromJson(Map<String, dynamic> json) => _$_Data(
       id: json['id'] as int,
-      categoryId: json['category_id'] as int,
-      brandId: json['brand_id'] as int,
+      categoryId: json['category_id'] as String,
+      brandId: json['brand_id'] as String,
       sku: json['sku'] as String,
       name: json['name'] as String,
       shortDescription: json['short_description'] as String,
       longDescription: json['long_description'] as String,
       thumbnail: json['thumbnail'] as String,
       images: json['images'] as String,
-      isActive: json['is_active'] as int,
+      isActive: json['is_active'] as String,
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
