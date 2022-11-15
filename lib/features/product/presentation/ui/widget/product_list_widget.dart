@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:youtube_sample_app/base/base_consumer_state.dart';
-import 'package:youtube_sample_app/features/product/presentation/controller/product_controller.dart';
+import 'package:youtube_sample_app/features/product/presentation/controller/product_controller_notifier.dart';
 
 class ProductListWidget extends ConsumerStatefulWidget {
   const ProductListWidget({Key? key}) : super(key: key);
@@ -23,10 +23,10 @@ class _ProductListWidgetState extends BaseConsumerState<ProductListWidget> {
       // get the max scroll extent and - 310px to load more item before reach the end of scroll
       final maxScrollExtent = _scrollController.position.maxScrollExtent;
       if (_scrollController.position.pixels >= maxScrollExtent) {
-        final currentPage = ref.read(productControllerProvider).currentPage;
-        final totalPage = ref.read(productControllerProvider).totalPage;
+        final currentPage = ref.read(productControllerNotifierProvider).currentPage;
+        final totalPage = ref.read(productControllerNotifierProvider).totalPage;
         if (currentPage < totalPage) {  
-          ref.read(productControllerProvider.notifier).getProducts();
+          ref.read(productControllerNotifierProvider.notifier).getProducts();
         }
       }
     });
@@ -41,7 +41,7 @@ class _ProductListWidgetState extends BaseConsumerState<ProductListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(productControllerProvider);    
+    final state = ref.watch(productControllerNotifierProvider);    
     
     if (state.products.isEmpty && state.isLoading) {
       return const Center(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:youtube_sample_app/common/providers/media_query_data_provider.dart';
 import 'package:youtube_sample_app/core/local/db/hive_db.dart';
 import 'package:youtube_sample_app/core/route/go_router_provider.dart';
 import 'package:youtube_sample_app/features/auth/presentation/ui/controller/auth_controller.dart';
@@ -43,6 +44,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     final router = ref.watch(goRouterProvider);
     
+    
     return MaterialApp.router(
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
@@ -51,6 +53,18 @@ class _MyAppState extends ConsumerState<MyApp> {
       theme: ThemeData(       
         primarySwatch: Colors.blue,
       ),
+      builder: (context, child) {  
+        final MediaQueryData data = MediaQuery.of(context); 
+        // Store media query data for future use in widget tree
+        Future(() {
+          ref.read(mediaQueryDataProvider.notifier).state = data;  
+        });
+                
+        return MediaQuery(         
+          data: data.copyWith(textScaleFactor: data.textScaleFactor > 1.5 ? 1.5 : 1),
+          child: child!,
+        );
+      },
       
     );
   }
